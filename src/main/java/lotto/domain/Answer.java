@@ -9,19 +9,45 @@ import java.util.stream.IntStream;
 
 public class Answer {
     private Lotto lotto;
+    private int bonus;
 
+    /**
+     * 도메인 로직
+     */
     public void readAnswerNumber(String input) {
-        lotto = new Lotto(validate(input));
+        lotto = new Lotto(validateAnswer(input));
     }
 
-    private List<Integer> validate(String input) {
-        validateInputLength(input);
+    public void readBonusNumber(String input) {
+        int bonus = validateBonus(input);
 
-        return validateNumericValue(new StringTokenizer(input));
+        if(lotto.getNumbers().contains(bonus))
+            throw new IllegalArgumentException(InputException.DUPLICATED.getMessage());
+
+        this.bonus = bonus;
+    }
+
+    private List<Integer> validateAnswer(String input) {
+        validateInputLength(input);
+        List<Integer> result = validateNumericValue(new StringTokenizer(input, ","));
+        result.forEach(this::validateNumberRange);
+
+        return result;
+    }
+
+    private int validateBonus(String input) {
+        try {
+            int result = Integer.parseInt(input);
+            validateNumberRange(result);
+
+            return result;
+        } catch (NumberFormatException n) {
+            throw new IllegalArgumentException(InputException.NOT_A_NUMBER.getMessage());
+        }
     }
 
     private void validateInputLength(String input) {
-        StringTokenizer st = new StringTokenizer(input);
+        StringTokenizer st = new StringTokenizer(input, ",");
 
         if(st.countTokens()!=6)
             throw new IllegalArgumentException(InputException.INVALID_NUMBER_LENGTH.getMessage());
@@ -36,5 +62,10 @@ public class Answer {
         } catch (NumberFormatException n) {
             throw new IllegalArgumentException(InputException.NOT_A_NUMBER.getMessage());
         }
+    }
+
+    private void validateNumberRange(int number) {
+        if(number<1 || 45<number)
+            throw new IllegalArgumentException(InputException.INVALID_NUMBER_RANGE.getMessage());
     }
 }
