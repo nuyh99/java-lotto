@@ -34,6 +34,4 @@ public class Lotto {
         if(numbers.size()!=numbers.stream().distinct().count())
             throw new IllegalArgumentException(InputException.DUPLICATED.getMessage());
     }
-
-    // TODO: 추가 기능 구현
 }

@@ -3,18 +3,18 @@ package lotto.domain;
 import java.util.Arrays;
 
 public enum Prize {
-    FIRST(6, false, "2,000,000,000"),
-    SECOND(5, true, "30,000,000"),
-    THIRD(5, false, "1,500,000"),
-    FOURTH(4, false, "50,000"),
-    FIFTH(3, false, "5,000"),
-    NOTHING(0, false, "0"),;
+    FIRST(6, false, 2_000_000_000),
+    SECOND(5, true, 30_000_000),
+    THIRD(5, false, 1_500_000),
+    FOURTH(4, false, 50_000),
+    FIFTH(3, false, 5_000),
+    NOTHING(0, false, 0),;
 
     private final int countMatches;
     private final boolean bonus;
-    private final String prizeMoney;
+    private final int prizeMoney;
 
-    Prize(int countMatches, boolean bonus, String prizeMoney) {
+    Prize(int countMatches, boolean bonus, int prizeMoney) {
         this.countMatches = countMatches;
         this.bonus = bonus;
         this.prizeMoney = prizeMoney;
@@ -27,7 +27,7 @@ public enum Prize {
                 .orElse(NOTHING);
     }
 
-    public String getPrizeMoney() {
+    public int getPrizeMoney() {
         return this.prizeMoney;
     }
 }
