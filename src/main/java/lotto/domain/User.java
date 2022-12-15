@@ -14,6 +14,10 @@ public class User {
         return purchased;
     }
 
+    public List<Lotto> getLottos() {
+        return lottos;
+    }
+
     /**
      * 도메인 로직
      */
