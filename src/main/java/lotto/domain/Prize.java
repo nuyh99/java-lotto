@@ -26,4 +26,8 @@ public enum Prize {
                 .findFirst()
                 .orElse(NOTHING);
     }
+
+    public String getPrizeMoney() {
+        return this.prizeMoney;
+    }
 }

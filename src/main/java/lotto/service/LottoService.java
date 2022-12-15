@@ -36,4 +36,13 @@ public class LottoService {
                 .collect(Collectors.toList());
     }
 
+    public double getEarnedRate() {
+        double sum = getResult().stream()
+                .map(Prize::getPrizeMoney)
+                .mapToDouble(Double::parseDouble)
+                .sum();
+
+        return sum / user.getPurchased();
+    }
+
 }
