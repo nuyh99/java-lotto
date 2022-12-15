@@ -31,4 +31,31 @@ class AnswerTest {
         Assertions.assertThatThrownBy(() -> answer.readAnswerNumber(input))
                 .isInstanceOf(IllegalArgumentException.class);
     }
+
+    @Test
+    void 보너스_번호_입력받기() throws Exception{
+        //given
+        Answer answer= new Answer();
+        answer.readAnswerNumber("1,2,3,4,5,6");
+
+        //when
+        answer.readBonusNumber("7");
+        answer.readBonusNumber("45");
+
+        //then
+    }
+
+    @ValueSource(strings = {"6", "f"})
+    @ParameterizedTest
+    void 잘못된_보너스_번호_입력(String input) throws Exception{
+        //given
+        Answer answer= new Answer();
+        answer.readAnswerNumber("1,2,3,4,5,6");
+
+        //when
+
+        //then
+        Assertions.assertThatThrownBy(() -> answer.readBonusNumber(input))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
 }
