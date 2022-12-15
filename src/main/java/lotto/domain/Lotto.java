@@ -1,0 +1,37 @@
+package lotto.domain;
+
+import lotto.exception.InputException;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class Lotto {
+    private final List<Integer> numbers;
+
+    public Lotto(List<Integer> numbers) {
+        validate(numbers);
+        this.numbers = numbers.stream()
+                .sorted()
+                .collect(Collectors.toList());
+    }
+
+    public List<Integer> getNumbers() {
+        return numbers;
+    }
+
+    /**
+     * 도메인 로직
+     */
+    public int countMatches(Lotto other) {
+        return (int) this.numbers.stream()
+                .filter(other.numbers::contains)
+                .count();
+    }
+
+    private void validate(List<Integer> numbers) {
+        if (numbers.size() != 6)
+            throw new IllegalArgumentException(InputException.INVALID_NUMBER_LENGTH.getMessage());
+        if(numbers.size()!=numbers.stream().distinct().count())
+            throw new IllegalArgumentException(InputException.DUPLICATED.getMessage());
+    }
+}
