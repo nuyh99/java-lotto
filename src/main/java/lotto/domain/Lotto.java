@@ -23,9 +23,10 @@ public class Lotto {
      * 도메인 로직
      */
     private void validate(List<Integer> numbers) {
-        if (numbers.size() != 6) {
+        if (numbers.size() != 6)
             throw new IllegalArgumentException(InputException.INVALID_NUMBER_LENGTH.getMessage());
-        }
+        if(numbers.size()!=numbers.stream().distinct().count())
+            throw new IllegalArgumentException(InputException.DUPLICATED.getMessage());
     }
 
     // TODO: 추가 기능 구현

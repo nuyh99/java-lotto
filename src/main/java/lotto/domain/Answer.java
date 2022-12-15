@@ -2,9 +2,10 @@ package lotto.domain;
 
 import lotto.exception.InputException;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Answer {
     private Lotto lotto;
@@ -15,10 +16,8 @@ public class Answer {
 
     private List<Integer> validate(String input) {
         validateInputLength(input);
-        List<Integer> result = validateNumeric(new StringTokenizer(input));
-        validateDuplicated(result);
 
-        return result;
+        return validateNumericValue(new StringTokenizer(input));
     }
 
     private void validateInputLength(String input) {
@@ -28,20 +27,14 @@ public class Answer {
             throw new IllegalArgumentException(InputException.INVALID_NUMBER_LENGTH.getMessage());
     }
 
-    private List<Integer> validateNumeric(StringTokenizer input) {
+    private List<Integer> validateNumericValue(StringTokenizer input) {
         try {
-            List<Integer> result = new ArrayList<>();
-            while (input.hasMoreTokens())
-                result.add(Integer.parseInt(input.nextToken()));
-
-            return result;
+            return IntStream.range(0, 6)
+                    .map(o -> Integer.parseInt(input.nextToken()))
+                    .boxed()
+                    .collect(Collectors.toList());
         } catch (NumberFormatException n) {
             throw new IllegalArgumentException(InputException.NOT_A_NUMBER.getMessage());
         }
-    }
-
-    private void validateDuplicated(List<Integer> input) {
-        if(input.size() != input.stream().distinct().count())
-            throw new IllegalArgumentException(InputException.DUPLICATED.getMessage());
     }
 }

@@ -28,13 +28,13 @@ public class User {
     }
 
     private int validate(String input) {
-        int purchased = toInteger(input);
+        int purchased = validateNumericValue(input);
         validateUnitOfPurchased(purchased);
 
         return purchased;
     }
 
-    private int toInteger(String input) {
+    private int validateNumericValue(String input) {
         try {
             return Integer.parseInt(input);
         } catch (NumberFormatException n) {
