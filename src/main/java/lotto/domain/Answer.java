@@ -11,6 +11,14 @@ public class Answer {
     private Lotto lotto;
     private int bonus;
 
+    public Lotto getLotto() {
+        return lotto;
+    }
+
+    public int getBonus() {
+        return bonus;
+    }
+
     /**
      * 도메인 로직
      */
@@ -26,6 +34,7 @@ public class Answer {
 
         this.bonus = bonus;
     }
+
 
     private List<Integer> validateAnswer(String input) {
         validateInputLength(input);

@@ -22,6 +22,12 @@ public class Lotto {
     /**
      * 도메인 로직
      */
+    public int countMatches(Lotto other) {
+        return (int) this.numbers.stream()
+                .filter(other.numbers::contains)
+                .count();
+    }
+
     private void validate(List<Integer> numbers) {
         if (numbers.size() != 6)
             throw new IllegalArgumentException(InputException.INVALID_NUMBER_LENGTH.getMessage());

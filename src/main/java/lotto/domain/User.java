@@ -8,7 +8,7 @@ import java.util.List;
 
 public class User {
     private int purchased;
-    private List<Lotto> lottos=new ArrayList<>();
+    private final List<Lotto> lottos = new ArrayList<>();
 
     public int getPurchased() {
         return purchased;
@@ -27,6 +27,7 @@ public class User {
             lottos.add(new Lotto(Randoms.pickUniqueNumbersInRange(1, 45, 6)));
     }
 
+
     private int validate(String input) {
         int purchased = validateNumericValue(input);
         validateUnitOfPurchased(purchased);
@@ -43,7 +44,7 @@ public class User {
     }
 
     private void validateUnitOfPurchased(int input) {
-        if(input%1000!=0)
+        if (input % 1000 != 0)
             throw new IllegalArgumentException(InputException.INVALID_PURCHASED.getMessage());
     }
 }
