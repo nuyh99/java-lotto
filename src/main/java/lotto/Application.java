@@ -38,5 +38,14 @@ public class Application {
         User user = new User();
         user.setMoney();
         user.setLotto(user.money);
+
+        String str = Console.readLine();
+        Stream<Integer> lucky_num =
+                Pattern.compile(" ").splitAsStream(str)
+                        .map(s->Integer.parseInt(s));
+
+        Lotto lotto = new Lotto(lucky_num.collect(Collectors.toList()));
+
+
     }
 }
