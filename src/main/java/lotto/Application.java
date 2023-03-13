@@ -11,8 +11,27 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Application {
+    public enum RankType{
+        RANK_5(5,5000),
+        RANK_4(4,50000),
+        RANK_3(3,1500000),
+        RANK_2(2,30000000),
+        RANK_1(1,2000000000),
+        RANK_NULL(0,0);
 
-    private static double printGameResult(ArrayList<Integer> list) {
+        public final int rank;
+        public final double cost;
+
+        RankType(int rank,double cost){
+            this.rank = rank;
+            this.cost = cost;
+        }
+
+        public int getRank(){return rank;}
+        public double getCost(){return cost;}
+
+    }
+    private static void printGameResult(ArrayList<Integer> list) {
         System.out.println("당첨 통계");
         System.out.println("---");
 
@@ -22,8 +41,6 @@ public class Application {
         System.out.println("5개 일치, 보너스 볼 일치 (30,000,000원) - " + list.get(3) + "개");
         System.out.println("6개 일치 (2,000,000,000원) - " + list.get(4) + "개");
 
-        return list.get(0) * 5000.0 + list.get(1) * 50000.0 + list.get(2) * 1500000.0
-            + list.get(3) * 30000000.0 + list.get(4) * 2000000000.0;
     }
 
     private static class User {
@@ -81,14 +98,16 @@ public class Application {
 
         lotto.setBonusNumber();
 
+        double income=0.0;
         for (int i = 0; i < user.money / 1000; i++) {
-            int index = lotto.checkLottoRank(user.userLotto[i]);
-            if (index > 0) {
-                luckylist.set(5 - index, luckylist.get(5 - index) + 1);
+            RankType rank = lotto.checkLottoRank(user.userLotto[i]);
+            if (rank.getRank() != 0) {
+                luckylist.set(5 - rank.getRank(), luckylist.get(5 - rank.getRank()) + 1);
+                income+=rank.getCost();
             }
         }
 
-        double income = printGameResult(luckylist);
+        printGameResult(luckylist);
         System.out.println("총 수익률은 " + (income / (double) user.money) * 100.0 + "%입니다.");
     }
 }

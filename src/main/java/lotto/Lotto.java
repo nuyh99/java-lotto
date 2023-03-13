@@ -5,6 +5,7 @@ import camp.nextstep.edu.missionutils.Console;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import lotto.Application.RankType;
 
 public class Lotto {
     private final List<Integer> numbers;
@@ -39,24 +40,24 @@ public class Lotto {
         }
     }
 
-     public int checkLottoRank(ArrayList<Integer> user_numbers){
+     public RankType checkLottoRank(ArrayList<Integer> user_numbers){
         long duplicate_num = user_numbers.stream().filter(n->numbers.contains(n)).count();
-        if(duplicate_num==3){
-            return 5;
+        if(duplicate_num== 3){
+            return RankType.RANK_5;
         }
         if(duplicate_num==4){
-            return 4;
+            return RankType.RANK_4;
         }
         if(duplicate_num==5){
             if(user_numbers.stream().filter(n->numbers.contains(duplicate_num)).count()>=1){
-                return 2;
+                return RankType.RANK_3;
             }
-            return 3;
+            return RankType.RANK_2;
         }
         if(duplicate_num==6){
-            return 1;
+            return RankType.RANK_1;
         }
-        return 0;
+        return RankType.RANK_NULL;
      }
 
 }
