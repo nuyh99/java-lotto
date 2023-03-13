@@ -44,7 +44,7 @@ public class Application {
     }
 
     public static void main(String[] args) {
-
+        ArrayList<Integer> luckylist = new ArrayList<Integer>(Arrays.asList(0, 0, 0, 0, 0));
         User user = new User();
 
         try {
@@ -62,6 +62,13 @@ public class Application {
         Lotto lotto = new Lotto(lucky_num.collect(Collectors.toList()));
 
         lotto.setBonusNumber();
+
+        for (int i = 0; i < user.money / 1000; i++) {
+            int index = lotto.checkLottoRank(user.userLotto[i]);
+            if (index > 0) {
+                luckylist.set(5 - index, luckylist.get(5 - index) + 1);
+            }
+        }
 
     }
 }
