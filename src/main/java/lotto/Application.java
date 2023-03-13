@@ -53,7 +53,6 @@ public class Application {
             for (int i = 0; i < (money / 1000); i++) {
                 List<Integer> numbers = Randoms.pickUniqueNumbersInRange(1, 45, 6);
                 userLotto[i] = new ArrayList<Integer>(numbers);
-                System.out.println(numbers);
             }
         }
     }
@@ -69,6 +68,10 @@ public class Application {
         }
 
         user.setLotto(user.money);
+        for (int i = 0; i < (user.money / 1000); i++) {
+            System.out.println(user.userLotto[i]);
+        }
+
         String str = Console.readLine();
         Stream<Integer> lucky_num =
             Pattern.compile(",").splitAsStream(str)
