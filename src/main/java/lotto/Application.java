@@ -85,5 +85,7 @@ public class Application {
             }
         }
 
+        double income = printGameResult(luckylist);
+        System.out.println("총 수익률은 " + (income / (double) user.money) * 100.0 + "%입니다.");
     }
 }
