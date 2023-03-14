@@ -27,28 +27,33 @@ public class Application {
     public static void main(String[] args) {
         ArrayList<Integer> luckylist = new ArrayList<Integer>(Arrays.asList(0, 0, 0, 0, 0));
         User user = new User();
-
+        
+        /*입력으로 문자열이 들어올 경우 throw된 예외 처리*/
         try {
             user.setMoney();
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
 
+        /*생성된 유저의 로또 출력*/
         user.setLotto(user.money);
         for (int i = 0; i < (user.money / 1000); i++) {
             System.out.println(user.userLotto[i]);
         }
-
+        
+        /*당첨번호를 입력받아 ','를 기준으로 분리후 당첨번호 넣어 로또 객체 생성*/
         String str1 = Console.readLine();
         Stream<Integer> lucky_num =
             Pattern.compile(",").splitAsStream(str1)
                 .map(s -> Integer.parseInt(s));
 
         Lotto lotto = new Lotto(lucky_num.collect(Collectors.toList()));
-
+        
+        /*보너스번호를 입력받아 User객체의 BOUUS_NUM에 저장*/
         String str2 = Console.readLine();
         lotto.setBonusNumber(str2);
 
+        /*당첨 결과 계산 및 출력*/
         double income = 0.0;
         for (int i = 0; i < user.money / 1000; i++) {
             RankType rank = lotto.checkLottoRank(user.userLotto[i]);
