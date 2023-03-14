@@ -12,11 +12,11 @@ import java.util.stream.Stream;
 
 public class Application {
     public enum RankType{
-        RANK_5(5,5000),
-        RANK_4(4,50000),
-        RANK_3(3,1500000),
-        RANK_2(2,30000000),
-        RANK_1(1,2000000000),
+        RANK_5(5,5_000),
+        RANK_4(4,50_000),
+        RANK_3(3,1_500_000),
+        RANK_2(2,30_000_000),
+        RANK_1(1,2_000_000_000),
         RANK_NULL(0,0);
 
         public final int rank;
@@ -89,14 +89,15 @@ public class Application {
             System.out.println(user.userLotto[i]);
         }
 
-        String str = Console.readLine();
+        String str1 = Console.readLine();
         Stream<Integer> lucky_num =
-            Pattern.compile(",").splitAsStream(str)
+            Pattern.compile(",").splitAsStream(str1)
                 .map(s -> Integer.parseInt(s));
 
         Lotto lotto = new Lotto(lucky_num.collect(Collectors.toList()));
 
-        lotto.setBonusNumber();
+        String str2 = Console.readLine();
+        lotto.setBonusNumber(str2);
 
         double income=0.0;
         for (int i = 0; i < user.money / 1000; i++) {

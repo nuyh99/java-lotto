@@ -25,13 +25,14 @@ public class Lotto {
             throw new IllegalArgumentException("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
         }
     }
-    public void setBonusNumber() {
-        String str = Console.readLine();
+    public void setBonusNumber(String str) {
         try {
             this.BONUS_NUM= Integer.parseInt(str);
         } catch (NumberFormatException e) {
-            System.out.println("[Error] 보너스 번호는 문자열이 될 수 없습니다.");
+            this.BONUS_NUM=-1;
+            throw new IllegalArgumentException("[Error] 보너스 번호는 문자열이 될 수 없습니다.");
         }
+
         if (BONUS_NUM<=1 && BONUS_NUM>=45) {
             throw new IllegalArgumentException("[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.");
         }
