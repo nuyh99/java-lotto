@@ -30,7 +30,7 @@ public class Lotto {
             this.BONUS_NUM= Integer.parseInt(str);
         } catch (NumberFormatException e) {
             this.BONUS_NUM=-1;
-            throw new IllegalArgumentException("[Error] 보너스 번호는 문자열이 될 수 없습니다.");
+            throw new IllegalArgumentException("[ERROR] 보너스 번호는 문자열이 될 수 없습니다.");
         }
 
         if (BONUS_NUM<=1 && BONUS_NUM>=45) {
