@@ -11,26 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Application {
-    public enum RankType{
-        RANK_5(5,5_000),
-        RANK_4(4,50_000),
-        RANK_3(3,1_500_000),
-        RANK_2(2,30_000_000),
-        RANK_1(1,2_000_000_000),
-        RANK_NULL(0,0);
 
-        public final int rank;
-        public final double cost;
-
-        RankType(int rank,double cost){
-            this.rank = rank;
-            this.cost = cost;
-        }
-
-        public int getRank(){return rank;}
-        public double getCost(){return cost;}
-
-    }
     private static void printGameResult(ArrayList<Integer> list) {
         System.out.println("당첨 통계");
         System.out.println("---");
@@ -41,37 +22,6 @@ public class Application {
         System.out.println("5개 일치, 보너스 볼 일치 (30,000,000원) - " + list.get(3) + "개");
         System.out.println("6개 일치 (2,000,000,000원) - " + list.get(4) + "개");
 
-    }
-
-    private static class User {
-
-        private int money;
-        private ArrayList<Integer>[] userLotto;
-
-        public User() {
-        }
-
-        private void setMoney() throws IllegalArgumentException {
-            String str = Console.readLine();
-            try {
-                this.money = Integer.parseInt(str);
-            } catch (NumberFormatException e) {
-                this.money = -1;
-            }
-
-            if (money % 1000 != 0) {
-                throw new IllegalArgumentException("[ERROR] 금액은 1,000원 단위여야 합니다.");
-            }
-        }
-
-        private void setLotto(int money) {
-            userLotto = new ArrayList[money / 1000];
-            System.out.println(money / 1000 + "개를 구매했습니다.");
-            for (int i = 0; i < (money / 1000); i++) {
-                List<Integer> numbers = Randoms.pickUniqueNumbersInRange(1, 45, 6);
-                userLotto[i] = new ArrayList<Integer>(numbers);
-            }
-        }
     }
 
     public static void main(String[] args) {
