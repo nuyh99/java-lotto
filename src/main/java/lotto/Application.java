@@ -49,12 +49,12 @@ public class Application {
         String str2 = Console.readLine();
         lotto.setBonusNumber(str2);
 
-        double income=0.0;
+        double income = 0.0;
         for (int i = 0; i < user.money / 1000; i++) {
             RankType rank = lotto.checkLottoRank(user.userLotto[i]);
             if (rank.getRank() != 0) {
                 luckylist.set(5 - rank.getRank(), luckylist.get(5 - rank.getRank()) + 1);
-                income+=rank.getCost();
+                income += rank.getCost();
             }
         }
 

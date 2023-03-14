@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class User {
+
     public int money;
     public ArrayList<Integer>[] userLotto;
 
