@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 public class Lotto {
-    public static final int NUMBER_MIN_BOUNDARY = 1;
+    public static final int NUMBER_LOWER_BOUND = 1;
     public static final int NUMBER_MAX_BOUNDARY = 45;
     public static final int LOTTO_NUMBER_SIZE = 6;
     private final List<Integer> numbers;
@@ -25,7 +25,6 @@ public class Lotto {
         if (!checkOverlap(testNumbers)) {
             throw new IllegalArgumentException("[ERROR] 로또 번호는 중복되어선 안됩니다.");
         }
-
     }
 
     private boolean checkOverlap(List<Integer> numbers) {
@@ -35,9 +34,13 @@ public class Lotto {
 
     private boolean validateNumRange(List<Integer> numbers) {
         final int size = (int) numbers.stream()
-                .filter(e -> NUMBER_MIN_BOUNDARY <= e && e <= NUMBER_MAX_BOUNDARY)
+                .filter(e -> NUMBER_LOWER_BOUND <= e && e <= NUMBER_MAX_BOUNDARY)
                 .count();
 
         return size == LOTTO_NUMBER_SIZE;
+    }
+
+    public List<Integer> getNumbers() {
+        return numbers;
     }
 }
