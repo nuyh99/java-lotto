@@ -6,7 +6,7 @@ import java.util.Set;
 
 public class Lotto {
     public static final int NUMBER_LOWER_BOUND = 1;
-    public static final int NUMBER_MAX_BOUNDARY = 45;
+    public static final int NUMBER_MAX_BOUND = 45;
     public static final int LOTTO_NUMBER_SIZE = 6;
     private final List<Integer> numbers;
 
@@ -34,7 +34,7 @@ public class Lotto {
 
     private boolean validateNumRange(List<Integer> numbers) {
         final int size = (int) numbers.stream()
-                .filter(e -> NUMBER_LOWER_BOUND <= e && e <= NUMBER_MAX_BOUNDARY)
+                .filter(e -> NUMBER_LOWER_BOUND <= e && e <= NUMBER_MAX_BOUND)
                 .count();
 
         return size == LOTTO_NUMBER_SIZE;
