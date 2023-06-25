@@ -1,13 +1,13 @@
-package domain;
+package domain.lottonumber;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class Lotto {
-    protected static final int NUMBER_LOWER_BOUND = 1;
-    protected static final int NUMBER_MAX_BOUND = 45;
-    protected static final int LOTTO_NUMBER_SIZE = 6;
+    static final int NUMBER_LOWER_BOUND = 1;
+    static final int NUMBER_MAX_BOUND = 45;
+    static final int LOTTO_NUMBER_SIZE = 6;
     private final List<Integer> numbers;
 
     public Lotto(List<Integer> numbers) {
@@ -39,6 +39,7 @@ public class Lotto {
     }
 
     public List<Integer> getNumbers() {
+
         return numbers;
     }
 }

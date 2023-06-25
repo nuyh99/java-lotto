@@ -1,8 +1,8 @@
-package domain;
+package domain.lottonumber;
 
 import java.util.List;
 
-public class WinningLotto extends Lotto {
+public final class WinningLotto extends Lotto {
     private final int bonus;
 
     public WinningLotto(List<Integer> numbers, int bonus) {
