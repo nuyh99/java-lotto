@@ -2,22 +2,21 @@
 
 ## 기능 명세
 
-- [ ] Lotto
-    - [ ] 로또 번호 정보를 저장하는 클래스
-    - [ ] 로또 번호의 숫자 범위는 1 ~ 45
-    - [ ] 중복되지 않는 6개의 숫자를 가진다.
+- [x] Lotto
+    - [x] 로또 번호 정보를 저장하는 클래스
+    - [x] 로또 번호의 숫자 범위는 1 ~ 45
+    - [x] 중복되지 않는 6개의 숫자를 가진다.
 
 
-- [ ] Winning Lotto Numbers (Lotto 상속)
-    - [ ] 당첨 로또 번호 + 보너스 번호를 가지는 클래스
-    - [ ] Lotto Numbers 가진다.
-    - [ ] 보너스 번호를 가진다.
-    - [ ] 입력에 따라 정의됨.
+- [x] Winning Lotto Numbers (Lotto 상속)
+    - [x] 당첨 로또 번호 + 보너스 번호를 가지는 클래스
+    - [x] Lotto Numbers 가진다.
+    - [x] 보너스 번호를 가진다.
 
 
-- [ ] Lotto Numbers Generator
-    - [ ] 6개의 중복되지 않은 번호 생성
-        - [ ] 랜덤으로 생성한다.
+- [x] Lotto Numbers Generator
+    - [x] 6개의 중복되지 않은 번호 생성
+        - [x] 랜덤으로 생성한다.
 
 
 - [ ] Computer
