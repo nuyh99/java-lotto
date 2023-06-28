@@ -2,7 +2,6 @@ package domain;
 
 import domain.lottonumber.Lotto;
 import domain.lottonumber.LottoGenerator;
-import domain.lottonumber.WinningLotto;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,10 +10,6 @@ import java.util.stream.Stream;
 public final class Computer {
     private static final int LOTTO_PRICE = 1000;
 
-    public LottoResult checkLottoRank(List<Lotto> lottos, WinningLotto winningLotto) {
-        for (Lotto lotto : lottos) {
-        }
-    }
 
     public List<Lotto> buyLottoByPrice(int price) {
         if (price % LOTTO_PRICE != 0) {
