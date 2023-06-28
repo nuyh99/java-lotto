@@ -1,5 +1,9 @@
 package domain.lottonumber;
 
+import domain.LottoRank;
+
+import java.util.List;
+
 public final class WinningLotto extends Lotto {
     private final int bonus;
 
@@ -37,5 +41,18 @@ public final class WinningLotto extends Lotto {
 
     private boolean isOverpopulation(String bonus) {
         return getNumbers().contains(Integer.parseInt(bonus));
+    }
+
+    public LottoRank checkRank(Lotto lotto) {
+        List<Integer> lottoNumbers = lotto.getNumbers();
+
+        int matches = (int) lottoNumbers
+                .stream()
+                .filter(getNumbers()::contains)
+                .count();
+
+        boolean isBonus = getNumbers().contains(bonus);
+
+        return LottoRank.findRankByMatches(matches, isBonus);
     }
 }

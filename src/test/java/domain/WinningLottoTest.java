@@ -1,10 +1,14 @@
 package domain;
 
+import domain.lottonumber.Lotto;
 import domain.lottonumber.WinningLotto;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 class WinningLottoTest {
@@ -54,5 +58,53 @@ class WinningLottoTest {
         assertThatThrownBy(() ->
                 new WinningLotto("1,2,3,7,5,6", "6"))
                 .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @DisplayName("매칭 결과 Lott Rank FIRST 여야한다.")
+    @Test
+    void createFirstRankLotto() {
+        WinningLotto winningLotto = new WinningLotto("3,2,6,4,1,45", "10");
+        Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 6, 45));
+        assertThat(winningLotto.checkRank(lotto)).isEqualTo(LottoRank.FIRST);
+    }
+
+    @DisplayName("매칭 결과 Lott Rank SECOND 여야한다.")
+    @Test
+    void createSecondRankLotto() {
+        WinningLotto winningLotto = new WinningLotto("3,2,6,4,1,45", "45");
+        Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 6, 45));
+        assertThat(winningLotto.checkRank(lotto)).isEqualTo(LottoRank.SECOND);
+    }
+
+    @DisplayName("매칭 결과 Lott Rank SECOND 여야한다.")
+    @Test
+    void createThirdRankLotto() {
+        WinningLotto winningLotto = new WinningLotto("3,2,6,4,1,10", "20");
+        Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 6, 45));
+        assertThat(winningLotto.checkRank(lotto)).isEqualTo(LottoRank.THIRD);
+    }
+
+    @DisplayName("매칭 결과 Lott Rank FOURTH 여야한다.")
+    @Test
+    void createFourthRankLotto() {
+        WinningLotto winningLotto = new WinningLotto("3,2,32,4,1,10", "20");
+        Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 6, 20));
+        assertThat(winningLotto.checkRank(lotto)).isEqualTo(LottoRank.FOURTH);
+    }
+
+    @DisplayName("매칭 결과 Lott Rank FIFTH 여야한다.")
+    @Test
+    void createFifthRankLotto() {
+        WinningLotto winningLotto = new WinningLotto("3,2,6,15,10,43", "20");
+        Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 6, 44));
+        assertThat(winningLotto.checkRank(lotto)).isEqualTo(LottoRank.FIFTH);
+    }
+
+    @DisplayName("매칭 결과 Lott Rank FIFTH 여야한다.")
+    @Test
+    void createUnRankedLotto() {
+        WinningLotto winningLotto = new WinningLotto("3,2,6,15,10,43", "20");
+        Lotto lotto = new Lotto(List.of(10, 20, 2, 40, 32, 44));
+        assertThat(winningLotto.checkRank(lotto)).isEqualTo(LottoRank.UNRANKED);
     }
 }
