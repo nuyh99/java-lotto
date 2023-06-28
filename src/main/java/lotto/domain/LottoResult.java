@@ -1,7 +1,7 @@
-package domain;
+package lotto.domain;
 
-import domain.lottonumber.Lotto;
-import domain.lottonumber.WinningLotto;
+import lotto.domain.lottonumber.Lotto;
+import lotto.domain.lottonumber.WinningLotto;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;

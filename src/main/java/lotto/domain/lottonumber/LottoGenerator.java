@@ -1,11 +1,11 @@
-package domain.lottonumber;
+package lotto.domain.lottonumber;
 
 import camp.nextstep.edu.missionutils.Randoms;
 
 import java.util.Collections;
 import java.util.List;
 
-import static domain.lottonumber.Lotto.*;
+import static lotto.domain.lottonumber.Lotto.*;
 
 public final class LottoGenerator {
     final public Lotto get() {
