@@ -1,11 +1,14 @@
 package domain;
 
+import java.util.Arrays;
+
 public enum LottoRank {
     FIRST(6, 2000000000),
     SECOND(5, true, 30000000),
     THIRD(5, false, 1500000),
     FOURTH(4, 50000),
-    FIFTH(3, 5000);
+    FIFTH(3, 5000),
+    UNRANKED(-1, 0);
 
     private final int value;
     private final int money;
@@ -21,6 +24,17 @@ public enum LottoRank {
         this.value = value;
         this.bonus = bonus;
         this.money = money;
+    }
+
+    public static LottoRank findRankByMatches(int count, boolean bonus) {
+        return Arrays.stream(LottoRank.values())
+                .filter(e -> e.hasSameInfo(count, bonus))
+                .findAny()
+                .orElse(UNRANKED);
+    }
+
+    boolean hasSameInfo(int count, boolean isBonus) {
+        return (value == count) && (bonus == isBonus);
     }
 
     public int getValue() {
