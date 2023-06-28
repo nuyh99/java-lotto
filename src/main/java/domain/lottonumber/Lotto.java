@@ -1,8 +1,10 @@
 package domain.lottonumber;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Lotto {
     static final int NUMBER_LOWER_BOUND = 1;
@@ -13,6 +15,13 @@ public class Lotto {
     public Lotto(List<Integer> numbers) {
         validate(numbers);
         this.numbers = numbers;
+    }
+
+    public Lotto(String readSentence) {
+        List<Integer> numbers = getLottoNumberBySentence(readSentence);
+        validate(numbers);
+        this.numbers = numbers;
+
     }
 
     protected void validate(List<Integer> testNumbers) {
@@ -38,5 +47,24 @@ public class Lotto {
     private boolean validateDuplicateNumber(List<Integer> numbers) {
         Set<Integer> nonOverlappedNumbers = new HashSet<>(numbers);
         return nonOverlappedNumbers.size() == LOTTO_NUMBER_SIZE;
+    }
+
+    private List<Integer> getLottoNumberBySentence(String readSentence) {
+        try {
+            return splitNumberGroup(readSentence.split(","));
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("정수만 입력 가능합니다");
+        }
+    }
+
+    private List<Integer> splitNumberGroup(String[] readNumbers) throws NumberFormatException {
+        return Arrays.stream(readNumbers)
+                .mapToInt(Integer::valueOf)
+                .boxed()
+                .collect(Collectors.toList());
+    }
+
+    protected final List<Integer> getNumbers() {
+        return numbers;
     }
 }

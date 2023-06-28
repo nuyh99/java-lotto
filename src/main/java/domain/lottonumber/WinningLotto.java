@@ -1,35 +1,13 @@
 package domain.lottonumber;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 public final class WinningLotto extends Lotto {
     private final int bonus;
 
     public WinningLotto(String readSentence, String bonus) {
-        super(getNumbersFromSentence(readSentence));
+        super(readSentence);
         validateBonus(bonus);
         this.bonus = Integer.parseInt(bonus);
     }
-
-    private static List<Integer> getNumbersFromSentence(String readSentence) {
-
-        try {
-            String[] splitNumber = readSentence.split(",");
-            return getLottoNumbers(splitNumber);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("정수만 입력 가능합니다");
-        }
-    }
-
-    private static List<Integer> getLottoNumbers(String[] readNumbers) throws NumberFormatException {
-        return Arrays.stream(readNumbers)
-                .mapToInt(Integer::valueOf)
-                .boxed()
-                .collect(Collectors.toList());
-    }
-
 
     private void validateBonus(String bonus) {
         if (!isNumeric(bonus)) {
@@ -40,7 +18,7 @@ public final class WinningLotto extends Lotto {
         }
     }
 
-    private static boolean isInRange(String bonus) {
+    private boolean isInRange(String bonus) {
         int number = Integer.parseInt(bonus);
         return (NUMBER_LOWER_BOUND <= number && number <= NUMBER_MAX_BOUND);
     }
