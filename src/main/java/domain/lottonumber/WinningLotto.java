@@ -11,10 +11,13 @@ public final class WinningLotto extends Lotto {
 
     private void validateBonus(String bonus) {
         if (!isNumeric(bonus)) {
-            throw new IllegalArgumentException("보너스 번호는 숫자만 가능합니다");
+            throw new IllegalArgumentException("[ERROR] 보너스 번호는 숫자만 가능합니다");
         }
         if (!isInRange(bonus)) {
-            throw new IllegalArgumentException("유효하지 않은 보너스 번호");
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 보너스 번호");
+        }
+        if (isOverpopulation(bonus)) {
+            throw new IllegalArgumentException("[ERROR] 보너스 번호와 로또 번호는 중복되선 안됩니다.");
         }
     }
 
@@ -30,5 +33,9 @@ public final class WinningLotto extends Lotto {
             return false;
         }
         return true;
+    }
+
+    private boolean isOverpopulation(String bonus) {
+        return getNumbers().contains(Integer.parseInt(bonus));
     }
 }
