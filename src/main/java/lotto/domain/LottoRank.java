@@ -3,12 +3,12 @@ package lotto.domain;
 import java.util.Arrays;
 
 public enum LottoRank {
-    FIRST(6, 2000000000),
-    SECOND(5, true, 30000000),
-    THIRD(5, false, 1500000),
-    FOURTH(4, 50000),
+    UNRANKED(-1, 0),
     FIFTH(3, 5000),
-    UNRANKED(-1, 0);
+    FOURTH(4, 50000),
+    THIRD(5, false, 1500000),
+    SECOND(5, true, 30000000),
+    FIRST(6, 2000000000);
 
     private final int value;
     private final int money;
