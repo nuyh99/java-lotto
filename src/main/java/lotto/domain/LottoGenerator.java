@@ -1,17 +1,20 @@
-package lotto.domain.lottonumber;
+package lotto.domain;
 
 import camp.nextstep.edu.missionutils.Randoms;
 
 import java.util.Collections;
 import java.util.List;
 
-import static lotto.domain.lottonumber.Lotto.*;
 
 public final class LottoGenerator {
-    final public Lotto get() {
+    public static final int NUMBER_LOWER_BOUND = 1;
+    public static final int NUMBER_MAX_BOUND = 45;
+    public static final int LOTTO_NUMBER_SIZE = 6;
+
+    static List<Integer> get() {
         List<Integer> lotto = Randoms.pickUniqueNumbersInRange(NUMBER_LOWER_BOUND, NUMBER_MAX_BOUND, LOTTO_NUMBER_SIZE);
 
         Collections.sort(lotto);
-        return new Lotto(lotto);
+        return lotto;
     }
 }
