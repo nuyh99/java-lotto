@@ -71,7 +71,7 @@ class WinningLottoTest {
     @DisplayName("매칭 결과 Lott Rank SECOND 여야한다.")
     @Test
     void createSecondRankLotto() {
-        WinningLotto winningLotto = new WinningLotto("3,2,6,4,1,45", "45");
+        WinningLotto winningLotto = new WinningLotto("3,2,6,4,1,42", "45");
         List<Integer> lotto = List.of(1, 2, 3, 4, 6, 45);
         assertThat(winningLotto.checkRank(lotto)).isEqualTo(LottoRank.SECOND);
     }
