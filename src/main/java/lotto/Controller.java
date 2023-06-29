@@ -16,16 +16,24 @@ public final class Controller {
     private static WinningLotto winningLotto;
 
     public void startLottoGame() {
-        buyLotto();
-        getWinningLotto();
-        getLottoResult();
+        try {
+            buyLotto();
+            getWinningLotto();
+            getLottoResult();
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            return;
+        }
     }
 
     private void buyLotto() {
         BuyLottoView buyLottoView = new BuyLottoView();
-
-        lotto = new Computer().buyLottoByPrice(buyLottoView.readPrice());
-        buyLottoView.getViewPurchasedLotto(lotto);
+        try {
+            lotto = new Computer().buyLottoByPrice(buyLottoView.readPrice());
+            buyLottoView.getViewPurchasedLotto(lotto);
+        } catch (IllegalArgumentException e) {
+            System.out.println("[ERROR] 올바르지 않은 입력");
+        }
     }
 
     private void getWinningLotto() {
@@ -52,6 +60,8 @@ public final class Controller {
     }
 
     private void printResult(LottoResultView lottoResultView, LottoRank rank, int amount) {
-        System.out.println(lottoResultView.getViewRankInfo(rank.getValue(), rank.getMoney(), amount, rank == LottoRank.SECOND));
+        System.out.println(lottoResultView
+                .getViewRankInfo(rank.getValue(), rank.getMoney(), amount, rank == LottoRank.SECOND));
+
     }
 }

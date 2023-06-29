@@ -8,22 +8,29 @@ public final class Computer {
     private static final int LOTTO_PRICE = 1000;
 
     private void validate(String price) {
-        validateNumber(price);
-        validateValidPrice(price);
+        try {
+            validateNumber(price);
+            validateValidPrice(price);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
 
     }
 
-    private void validateNumber(String price) {
+    private void validateNumber(String price) throws IllegalArgumentException {
         try {
             Integer.parseInt(price);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("[ERROR] 정수만 입력해야합니다.");
+            System.out.println("[ERROR] 숫자만 입력 가능합니다");
+            throw new IllegalArgumentException();
         }
     }
 
-    private void validateValidPrice(String price) {
+    private void validateValidPrice(String price) throws IllegalArgumentException {
+
         if (Integer.parseInt(price) % LOTTO_PRICE != 0) {
-            throw new IllegalArgumentException("[ERROR] 입력 금액은 1000 단위만 가능합니다");
+            System.out.println("[ERROR] 1000원 단위로 입력해야합니다.");
+            throw new IllegalArgumentException();
         }
     }
 
