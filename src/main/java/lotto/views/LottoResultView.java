@@ -12,6 +12,6 @@ public final class LottoResultView {
     }
 
     public String getViewAverageProfit(double average) {
-        return String.format("총 수익률은 %.1f%% 입니다.", average * 100);
+        return String.format("총 수익률은 %.1f%%입니다.", average * 100);
     }
 }
