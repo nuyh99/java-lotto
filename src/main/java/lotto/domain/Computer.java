@@ -8,16 +8,13 @@ public final class Computer {
     private static final int LOTTO_PRICE = 1000;
 
     private void validate(String price) {
-        try {
-            validateNumber(price);
-            validateValidPrice(price);
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        }
 
+        validateNumber(price);
+        validateValidPrice(price);
+        
     }
 
-    private void validateNumber(String price) throws IllegalArgumentException {
+    private void validateNumber(String price) {
         try {
             Integer.parseInt(price);
         } catch (NumberFormatException e) {
@@ -26,7 +23,7 @@ public final class Computer {
         }
     }
 
-    private void validateValidPrice(String price) throws IllegalArgumentException {
+    private void validateValidPrice(String price) {
 
         if (Integer.parseInt(price) % LOTTO_PRICE != 0) {
             System.out.println("[ERROR] 1000원 단위로 입력해야합니다.");

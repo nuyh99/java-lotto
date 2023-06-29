@@ -3,7 +3,6 @@ package lotto.domain.lottonumber;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import static lotto.domain.LottoGenerator.*;
@@ -27,25 +26,29 @@ public class Lotto {
         if (testNumbers.size() != LOTTO_NUMBER_SIZE) {
             throw new IllegalArgumentException("[ERROR] 로또 번호는 6개이어야 합니다.");
         }
-        if (!validateNumRange(testNumbers)) {
-            throw new IllegalArgumentException("[ERROR] 로또 번호는 1 ~ 45 사이여야 합니다.");
-        }
-        if (!validateDuplicateNumber(testNumbers)) {
-            throw new IllegalArgumentException("[ERROR] 로또 번호는 중복되어선 안됩니다.");
-        }
+        validateNumRange(testNumbers);
+
+        validateDuplicateNumber(testNumbers);
     }
 
-    private boolean validateNumRange(List<Integer> numbers) {
+    private void validateNumRange(List<Integer> numbers) {
         final int size = (int) numbers.stream()
                 .filter(e -> NUMBER_LOWER_BOUND <= e && e <= NUMBER_MAX_BOUND)
                 .count();
 
-        return size == LOTTO_NUMBER_SIZE;
+        if (size != LOTTO_NUMBER_SIZE) {
+            System.out.println("[ERROR] 로또 번호는 1 ~ 45 사이여야 합니다.");
+            throw new IllegalArgumentException();
+        }
     }
 
-    private boolean validateDuplicateNumber(List<Integer> numbers) {
-        Set<Integer> nonOverlappedNumbers = new HashSet<>(numbers);
-        return nonOverlappedNumbers.size() == LOTTO_NUMBER_SIZE;
+    private void validateDuplicateNumber(List<Integer> numbers) {
+        int numberAmount = (int) new HashSet<>(numbers).size();
+
+        if (numberAmount != LOTTO_NUMBER_SIZE) {
+            System.out.println("[ERROR] 로또 번호는 중복되어선 안됩니다.");
+            throw new IllegalArgumentException();
+        }
     }
 
     private List<Integer> getLottoNumberBySentence(String readSentence) {
@@ -58,10 +61,7 @@ public class Lotto {
 
     private List<Integer> splitNumberGroup(String[] readNumbers) throws NumberFormatException {
         Arrays.stream(readNumbers).forEach(this::validateNumeric);
-        return Arrays.stream(readNumbers)
-                .mapToInt(Integer::valueOf)
-                .boxed()
-                .collect(Collectors.toList());
+        return Arrays.stream(readNumbers).mapToInt(Integer::valueOf).boxed().collect(Collectors.toList());
     }
 
     private void validateNumeric(String readNumber) {
