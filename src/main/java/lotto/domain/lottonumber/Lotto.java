@@ -57,10 +57,19 @@ public class Lotto {
     }
 
     private List<Integer> splitNumberGroup(String[] readNumbers) throws NumberFormatException {
+        Arrays.stream(readNumbers).forEach(this::validateNumeric);
         return Arrays.stream(readNumbers)
                 .mapToInt(Integer::valueOf)
                 .boxed()
                 .collect(Collectors.toList());
+    }
+
+    private void validateNumeric(String readNumber) {
+        try {
+            Integer.parseInt(readNumber);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("[ERROR] 입력은 숫자만 가능합니다");
+        }
     }
 
     final List<Integer> getNumbers() {
