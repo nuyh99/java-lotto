@@ -52,7 +52,8 @@ public final class WinningLotto extends Lotto {
                 .filter(getNumbers()::contains)
                 .count();
 
-        boolean isBonus = lottoNumbers.contains(bonus);
+        boolean isBonus = (matches == LottoRank.SECOND.getValue()
+                && lottoNumbers.contains(bonus));
 
         return LottoRank.findRankByMatches(matches, isBonus);
     }
