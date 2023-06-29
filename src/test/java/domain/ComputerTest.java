@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class ComputerTest {
 
-    @DisplayName("가격이 1000단위가 아니면 얘외가 발생한다.")
+    @DisplayName("가격이 1000단위가 아니면 예외가 발생한다.")
     @Test
     void buyLottoByInvalidPrice() {
 
