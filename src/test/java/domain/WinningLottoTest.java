@@ -1,7 +1,6 @@
 package domain;
 
 import lotto.domain.LottoRank;
-import lotto.domain.lottonumber.Lotto;
 import lotto.domain.lottonumber.WinningLotto;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -65,7 +64,7 @@ class WinningLottoTest {
     @Test
     void createFirstRankLotto() {
         WinningLotto winningLotto = new WinningLotto("3,2,6,4,1,45", "10");
-        Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 6, 45));
+        List<Integer> lotto = List.of(1, 2, 3, 4, 6, 45);
         assertThat(winningLotto.checkRank(lotto)).isEqualTo(LottoRank.FIRST);
     }
 
@@ -73,7 +72,7 @@ class WinningLottoTest {
     @Test
     void createSecondRankLotto() {
         WinningLotto winningLotto = new WinningLotto("3,2,6,4,1,45", "45");
-        Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 6, 45));
+        List<Integer> lotto = List.of(1, 2, 3, 4, 6, 45);
         assertThat(winningLotto.checkRank(lotto)).isEqualTo(LottoRank.SECOND);
     }
 
@@ -81,7 +80,7 @@ class WinningLottoTest {
     @Test
     void createThirdRankLotto() {
         WinningLotto winningLotto = new WinningLotto("3,2,6,4,1,10", "20");
-        Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 6, 45));
+        List<Integer> lotto = List.of(1, 2, 3, 4, 6, 45);
         assertThat(winningLotto.checkRank(lotto)).isEqualTo(LottoRank.THIRD);
     }
 
@@ -89,7 +88,7 @@ class WinningLottoTest {
     @Test
     void createFourthRankLotto() {
         WinningLotto winningLotto = new WinningLotto("3,2,32,4,1,10", "20");
-        Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 6, 20));
+        List<Integer> lotto = List.of(1, 2, 3, 4, 6, 20);
         assertThat(winningLotto.checkRank(lotto)).isEqualTo(LottoRank.FOURTH);
     }
 
@@ -97,7 +96,7 @@ class WinningLottoTest {
     @Test
     void createFifthRankLotto() {
         WinningLotto winningLotto = new WinningLotto("3,2,6,15,10,43", "20");
-        Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 6, 44));
+        List<Integer> lotto = List.of(1, 2, 3, 4, 6, 44);
         assertThat(winningLotto.checkRank(lotto)).isEqualTo(LottoRank.FIFTH);
     }
 
@@ -105,7 +104,7 @@ class WinningLottoTest {
     @Test
     void createUnRankedLotto() {
         WinningLotto winningLotto = new WinningLotto("3,2,6,15,10,43", "20");
-        Lotto lotto = new Lotto(List.of(10, 20, 2, 40, 32, 44));
+        List<Integer> lotto = List.of(10, 20, 2, 40, 32, 44);
         assertThat(winningLotto.checkRank(lotto)).isEqualTo(LottoRank.UNRANKED);
     }
 }

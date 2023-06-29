@@ -4,6 +4,9 @@ import lotto.domain.LottoRank;
 
 import java.util.List;
 
+import static lotto.domain.LottoGenerator.NUMBER_LOWER_BOUND;
+import static lotto.domain.LottoGenerator.NUMBER_MAX_BOUND;
+
 public final class WinningLotto extends Lotto {
     private final int bonus;
 
@@ -43,15 +46,13 @@ public final class WinningLotto extends Lotto {
         return getNumbers().contains(Integer.parseInt(bonus));
     }
 
-    public LottoRank checkRank(Lotto lotto) {
-        List<Integer> lottoNumbers = lotto.getNumbers();
-
+    public LottoRank checkRank(List<Integer> lottoNumbers) {
         int matches = (int) lottoNumbers
                 .stream()
                 .filter(getNumbers()::contains)
                 .count();
 
-        boolean isBonus = getNumbers().contains(bonus);
+        boolean isBonus = lottoNumbers.contains(bonus);
 
         return LottoRank.findRankByMatches(matches, isBonus);
     }

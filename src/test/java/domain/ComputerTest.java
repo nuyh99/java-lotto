@@ -12,7 +12,7 @@ class ComputerTest {
     @Test
     void buyLottoByInvalidPrice() {
 
-        assertThatThrownBy(() -> new Computer().buyLottoByPrice(1040))
+        assertThatThrownBy(() -> new Computer().buyLottoByPrice("1040"))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
