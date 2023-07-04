@@ -26,12 +26,12 @@ public class Lotto {
         if (testNumbers.size() != LOTTO_NUMBER_SIZE) {
             throw new IllegalArgumentException("[ERROR] 로또 번호는 6개이어야 합니다.");
         }
-        validateNumRange(testNumbers);
+        validateNumberRange(testNumbers);
 
         validateDuplicateNumber(testNumbers);
     }
 
-    private void validateNumRange(List<Integer> numbers) {
+    private void validateNumberRange(List<Integer> numbers) {
         final int size = (int) numbers.stream()
                 .filter(e -> NUMBER_LOWER_BOUND <= e && e <= NUMBER_MAX_BOUND)
                 .count();

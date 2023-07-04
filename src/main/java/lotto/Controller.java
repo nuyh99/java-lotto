@@ -4,7 +4,7 @@ import lotto.domain.Computer;
 import lotto.domain.LottoRank;
 import lotto.domain.LottoResult;
 import lotto.domain.lottonumber.WinningLotto;
-import lotto.views.BuyLottoView;
+import lotto.views.LottoBuyView;
 import lotto.views.LottoResultView;
 import lotto.views.WinningLottoView;
 
@@ -29,10 +29,10 @@ public final class Controller {
 
     private void buyLotto() throws IllegalArgumentException {
 
-        BuyLottoView buyLottoView = new BuyLottoView();
+        LottoBuyView lottoBuyView = new LottoBuyView();
 
-        lotto = new Computer().buyLottoByPrice(buyLottoView.readPrice());
-        buyLottoView.getViewPurchasedLotto(lotto);
+        lotto = new Computer().buyLottoByPrice(lottoBuyView.readPrice());
+        lottoBuyView.printViewPurchasedLotto(lotto);
 
 
     }
@@ -48,7 +48,9 @@ public final class Controller {
 
         for (LottoRank rank : LottoRank.values()) {
             int amount = lottoResult.getNumberOfRanks(rank);
-            if (rank == LottoRank.UNRANKED) continue;
+            if (rank == LottoRank.UNRANKED) {
+                continue;
+            }
 
             printResult(lottoResultView, rank, amount);
         }

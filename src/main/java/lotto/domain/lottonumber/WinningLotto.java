@@ -19,7 +19,7 @@ public final class WinningLotto extends Lotto {
     private void validateBonus(String bonus) {
         isNumeric(bonus);
         isInRange(bonus);
-        isOverpopulation(bonus);
+        isDuplicate(bonus);
     }
 
     private void isNumeric(String bonus) {
@@ -40,7 +40,7 @@ public final class WinningLotto extends Lotto {
         }
     }
 
-    private void isOverpopulation(String bonus) {
+    private void isDuplicate(String bonus) {
 
         if (getNumbers().contains(Integer.parseInt(bonus))) {
             System.out.println("[ERROR] 보너스 번호와 로또 번호는 중복되선 안됩니다.");
