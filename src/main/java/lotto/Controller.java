@@ -12,6 +12,7 @@ import java.util.List;
 
 public final class Controller {
     public static final int PRICE_OF_LOTTO = 1000;
+
     private static List<List<Integer>> lotto;
     private static WinningLotto winningLotto;
 

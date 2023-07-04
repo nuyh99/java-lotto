@@ -12,7 +12,6 @@ public final class Computer {
         validate(price);
         int amount = Integer.parseInt(price) / LOTTO_PRICE;
 
-
         return Stream.generate(LottoGenerator::get)
                 .limit(amount)
                 .collect(Collectors.toList());
