@@ -28,12 +28,10 @@ public final class Controller {
 
     private void buyLotto() {
         BuyLottoView buyLottoView = new BuyLottoView();
-        try {
-            lotto = new Computer().buyLottoByPrice(buyLottoView.readPrice());
-            buyLottoView.getViewPurchasedLotto(lotto);
-        } catch (IllegalArgumentException e) {
-            System.out.println("[ERROR] 올바르지 않은 입력");
-        }
+
+        lotto = new Computer().buyLottoByPrice(buyLottoView.readPrice());
+        buyLottoView.getViewPurchasedLotto(lotto);
+        
     }
 
     private void getWinningLotto() {
