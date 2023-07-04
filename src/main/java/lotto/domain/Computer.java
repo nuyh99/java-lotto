@@ -7,14 +7,26 @@ import java.util.stream.Stream;
 public final class Computer {
     private static final int LOTTO_PRICE = 1000;
 
-    private void validate(String price) {
+    public List<List<Integer>> buyLottoByPrice(String price) {
+
+        validate(price);
+        int amount = Integer.parseInt(price) / LOTTO_PRICE;
+
+
+        return Stream.generate(LottoGenerator::get)
+                .limit(amount)
+                .collect(Collectors.toList());
+    }
+
+    private void validate(String price) throws IllegalArgumentException {
 
         validateNumber(price);
         validateValidPrice(price);
-        
+
+
     }
 
-    private void validateNumber(String price) {
+    private void validateNumber(String price) throws IllegalArgumentException {
         try {
             Integer.parseInt(price);
         } catch (NumberFormatException e) {
@@ -23,21 +35,11 @@ public final class Computer {
         }
     }
 
-    private void validateValidPrice(String price) {
+    private void validateValidPrice(String price) throws IllegalArgumentException {
 
         if (Integer.parseInt(price) % LOTTO_PRICE != 0) {
             System.out.println("[ERROR] 1000원 단위로 입력해야합니다.");
             throw new IllegalArgumentException();
         }
-    }
-
-    public List<List<Integer>> buyLottoByPrice(String price) {
-        validate(price);
-        int amount = Integer.parseInt(price) / LOTTO_PRICE;
-
-
-        return Stream.generate(LottoGenerator::get)
-                .limit(amount)
-                .collect(Collectors.toList());
     }
 }
