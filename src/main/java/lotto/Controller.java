@@ -58,13 +58,14 @@ public final class Controller {
     }
 
     private void printAverageProfit(LottoResult lottoResult, LottoResultView lottoResultView) {
-        double average = lottoResult.getAverageProfit(lotto.size() * PRICE_OF_LOTTO);
-        System.out.println(lottoResultView.getViewAverageProfit(average));
+        int totalPrice = lotto.size() * PRICE_OF_LOTTO;
+        double average = lottoResult.getAverageProfit(totalPrice);
+
+        lottoResultView.printViewAverageProfit(average);
     }
 
     private void printResult(LottoResultView lottoResultView, LottoRank rank, int amount) {
-        System.out.println(lottoResultView
-                .getViewRankInfo(rank.getValue(), rank.getMoney(), amount, rank == LottoRank.SECOND));
+        lottoResultView.printViewRankInfo(rank.getValue(), rank.getMoney(), amount, rank == LottoRank.SECOND);
 
     }
 }

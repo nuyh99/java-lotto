@@ -16,11 +16,11 @@ public final class LottoBuyView {
         System.out.println();
         System.out.printf("%d개를 구매했습니다.\n", lotto.size());
         for (List<Integer> currentLotto : lotto) {
-            System.out.printf("[%s]\n", printViewLottoNumbers(currentLotto));
+            System.out.printf("[%s]\n", getFormattedLottoNumbers(currentLotto));
         }
     }
 
-    private String printViewLottoNumbers(List<Integer> currentLotto) {
+    private String getFormattedLottoNumbers(List<Integer> currentLotto) {
         List<String> lottoNumbers = currentLotto
                 .stream()
                 .map(String::valueOf)
