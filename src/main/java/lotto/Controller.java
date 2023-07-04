@@ -16,22 +16,24 @@ public final class Controller {
     private static WinningLotto winningLotto;
 
     public void startLottoGame() {
+
         try {
             buyLotto();
             getWinningLotto();
             getLottoResult();
         } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-            return;
         }
+
     }
 
-    private void buyLotto() {
+    private void buyLotto() throws IllegalArgumentException {
+
         BuyLottoView buyLottoView = new BuyLottoView();
 
         lotto = new Computer().buyLottoByPrice(buyLottoView.readPrice());
         buyLottoView.getViewPurchasedLotto(lotto);
-        
+
+
     }
 
     private void getWinningLotto() {
