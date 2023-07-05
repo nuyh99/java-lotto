@@ -5,10 +5,11 @@ import lotto.domain.LottoRank;
 import lotto.domain.LottoResult;
 import lotto.domain.lottonumber.Lotto;
 import lotto.domain.lottonumber.WinningLotto;
+import lotto.views.InputReadView;
 import lotto.views.LottoBuyView;
 import lotto.views.LottoResultView;
-import lotto.views.WinningLottoView;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,14 +17,15 @@ public final class Controller {
     public static final int PRICE_OF_LOTTO = 1000;
 
     private static final Computer computer = new Computer();
+    private static final InputReadView inputReadView = new InputReadView();
     private static final LottoBuyView lottoBuyView = new LottoBuyView();
     private static final LottoResult lottoResult = new LottoResult();
 
     public void startLottoGame() {
         try {
-            List<Lotto> purchasedLotto = buyLotto(lottoBuyView.readPrice());
+            List<Lotto> purchasedLotto = buyLotto(inputReadView.readPrice());
             WinningLotto winningLotto = getWinningLotto();
-            printLottoResult(purchasedLotto, winningLotto);
+            getLottoResult(purchasedLotto, winningLotto);
         } catch (IllegalArgumentException e) {
         }
 
@@ -31,30 +33,37 @@ public final class Controller {
 
     private List<Lotto> buyLotto(String price) throws IllegalArgumentException {
 
-        List<Lotto> lotto = computer.buyLottoByPrice(price);
+
+        List<Lotto> lotto = computer.buyLottoByPrice(Integer.parseInt(price));
         lottoBuyView.printViewPurchasedLotto(convertLotto(lotto));
         return lotto;
     }
 
-    private static List<List<Integer>> convertLotto(List<Lotto> lotto) {
+    private List<List<Integer>> convertLotto(List<Lotto> lotto) {
         return lotto.stream()
                 .map(Lotto::getLottoNumbers)
                 .collect(Collectors.toList());
     }
 
     private WinningLotto getWinningLotto() {
-        WinningLottoView winningLottoView = new WinningLottoView();
-        return new WinningLotto(winningLottoView.readWinningLottoNumbers(), winningLottoView.readBonusNumber());
+        List<Integer> lottoNumbers = splitNumberGroup(inputReadView.readLottoNumbers());
+        int bonus = Integer.parseInt(inputReadView.readBonusNumber());
+
+        return new WinningLotto(lottoNumbers, bonus);
     }
 
-    private void printLottoResult(List<Lotto> purchasedLotto, WinningLotto winningLotto) {
+    private List<Integer> splitNumberGroup(String readLottoNumbers) {
+        String[] splitNumber = readLottoNumbers.split(",");
+        return Arrays.stream(splitNumber)
+                .mapToInt(Integer::valueOf)
+                .boxed()
+                .collect(Collectors.toList());
+    }
+
+    private void getLottoResult(List<Lotto> purchasedLotto, WinningLotto winningLotto) {
 
         List<LottoRank> lottoRanks = lottoResult.getLottoRanks(purchasedLotto, winningLotto);
-        getLottoResult(lottoRanks);
-    }
 
-
-    private void getLottoResult(List<LottoRank> lottoRanks) {
         LottoResultView lottoResultView = new LottoResultView();
 
         printRanks(lottoRanks, lottoResultView);

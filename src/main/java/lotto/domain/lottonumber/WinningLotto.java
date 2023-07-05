@@ -7,39 +7,28 @@ import java.util.List;
 public final class WinningLotto extends Lotto {
     private final int bonus;
 
-    public WinningLotto(String readSentence, String bonus) {
-        super(readSentence);
+    public WinningLotto(List<Integer> lottoNumbers, int bonus) {
+        super(lottoNumbers);
         validateBonus(bonus);
-        this.bonus = Integer.parseInt(bonus);
+        this.bonus = bonus;
     }
 
-    private void validateBonus(String bonus) {
-        isNumeric(bonus);
+    private void validateBonus(int bonus) {
         isInRange(bonus);
         isDuplicate(bonus);
     }
 
-    private void isNumeric(String bonus) {
-        try {
-            Integer.parseInt(bonus);
-        } catch (NumberFormatException e) {
-            System.out.println("[ERROR] 보너스 번호는 숫자만 가능합니다");
-            throw new IllegalArgumentException();
-        }
-    }
 
-    private void isInRange(String bonus) {
-        int number = Integer.parseInt(bonus);
-
-        if (NUMBER_LOWER_BOUND > number || number > NUMBER_MAX_BOUND) {
+    private void isInRange(int bonus) {
+        if (NUMBER_LOWER_BOUND > bonus || bonus > NUMBER_MAX_BOUND) {
             System.out.println("[ERROR] 유효하지 않은 보너스 번호");
             throw new IllegalArgumentException();
         }
     }
 
-    private void isDuplicate(String bonus) {
+    private void isDuplicate(int bonus) {
 
-        if (getLottoNumbers().contains(Integer.parseInt(bonus))) {
+        if (getLottoNumbers().contains(bonus)) {
             System.out.println("[ERROR] 보너스 번호와 로또 번호는 중복되선 안됩니다.");
             throw new IllegalArgumentException();
         }

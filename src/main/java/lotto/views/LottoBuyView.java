@@ -1,16 +1,10 @@
 package lotto.views;
 
-import camp.nextstep.edu.missionutils.Console;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
 public final class LottoBuyView {
-
-    public String readPrice() {
-        System.out.println("구입금액을 입력해 주세요.");
-        return Console.readLine();
-    }
+    static final InputReadView inputReadView = new InputReadView();
 
     public void printViewPurchasedLotto(List<List<Integer>> lotto) {
         System.out.println();

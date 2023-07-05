@@ -8,41 +8,22 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public final class Computer {
-    private static final int LOTTO_PRICE = 1000;
 
-    public List<Lotto> buyLottoByPrice(String price) {
+    static final int LOTTO_PRICE = 1000;
 
-        validate(price);
-        int amount = Integer.parseInt(price) / LOTTO_PRICE;
+    public List<Lotto> buyLottoByPrice(int price) {
 
-        return getLotto(amount);
-    }
-
-    private List<Lotto> getLotto(int amount) {
+        validateValidPrice(price);
+        int amount = price / LOTTO_PRICE;
         return Stream.generate(LottoGenerator::next)
                 .limit(amount)
                 .map(Lotto::new)
                 .collect(Collectors.toList());
     }
 
-    private void validate(String price) throws IllegalArgumentException {
+    private void validateValidPrice(int price) {
 
-        validateNumber(price);
-        validateValidPrice(price);
-    }
-
-    private void validateNumber(String price) throws IllegalArgumentException {
-        try {
-            Integer.parseInt(price);
-        } catch (NumberFormatException e) {
-            System.out.println("[ERROR] 숫자만 입력 가능합니다");
-            throw new IllegalArgumentException();
-        }
-    }
-
-    private void validateValidPrice(String price) throws IllegalArgumentException {
-
-        if (Integer.parseInt(price) % LOTTO_PRICE != 0) {
+        if (price % LOTTO_PRICE != 0) {
             System.out.println("[ERROR] 1000원 단위로 입력해야합니다.");
             throw new IllegalArgumentException();
         }
