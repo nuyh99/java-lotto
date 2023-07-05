@@ -4,7 +4,6 @@ import lotto.domain.lottonumber.Lotto;
 import lotto.domain.lottonumber.WinningLotto;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public final class LottoResult {

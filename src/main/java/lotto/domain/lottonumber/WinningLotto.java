@@ -4,9 +4,6 @@ import lotto.domain.LottoRank;
 
 import java.util.List;
 
-import static lotto.domain.LottoGenerator.NUMBER_LOWER_BOUND;
-import static lotto.domain.LottoGenerator.NUMBER_MAX_BOUND;
-
 public final class WinningLotto extends Lotto {
     private final int bonus;
 
