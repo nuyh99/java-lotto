@@ -1,5 +1,7 @@
 package lotto.domain;
 
+import lotto.domain.lottonumber.Lotto;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -7,13 +9,18 @@ import java.util.stream.Stream;
 public final class Computer {
     private static final int LOTTO_PRICE = 1000;
 
-    public List<List<Integer>> buyLottoByPrice(String price) {
+    public List<Lotto> buyLottoByPrice(String price) {
 
         validate(price);
         int amount = Integer.parseInt(price) / LOTTO_PRICE;
 
-        return Stream.generate(LottoGenerator::get)
+        return getLotto(amount);
+    }
+
+    private List<Lotto> getLotto(int amount) {
+        return Stream.generate(LottoGenerator::next)
                 .limit(amount)
+                .map(Lotto::new)
                 .collect(Collectors.toList());
     }
 
@@ -21,8 +28,6 @@ public final class Computer {
 
         validateNumber(price);
         validateValidPrice(price);
-
-
     }
 
     private void validateNumber(String price) throws IllegalArgumentException {
