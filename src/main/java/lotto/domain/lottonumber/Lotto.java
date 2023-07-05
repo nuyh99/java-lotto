@@ -24,7 +24,8 @@ public class Lotto {
 
     protected void validate(List<Integer> testNumbers) {
         if (testNumbers.size() != LOTTO_NUMBER_SIZE) {
-            throw new IllegalArgumentException("[ERROR] 로또 번호는 6개이어야 합니다.");
+            System.out.println("[ERROR] 로또 번호는 6개이어야 합니다.");
+            throw new IllegalArgumentException();
         }
         validateNumberRange(testNumbers);
 
@@ -55,24 +56,29 @@ public class Lotto {
         try {
             return splitNumberGroup(readSentence.split(","));
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("정수만 입력 가능합니다");
+            System.out.println("[ERROR] 정수만 입력 가능합니다.");
+            throw new IllegalArgumentException();
         }
     }
 
     private List<Integer> splitNumberGroup(String[] readNumbers) throws NumberFormatException {
         Arrays.stream(readNumbers).forEach(this::validateNumeric);
-        return Arrays.stream(readNumbers).mapToInt(Integer::valueOf).boxed().collect(Collectors.toList());
+        return Arrays.stream(readNumbers)
+                .mapToInt(Integer::valueOf)
+                .boxed()
+                .collect(Collectors.toList());
     }
 
     private void validateNumeric(String readNumber) {
         try {
             Integer.parseInt(readNumber);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("[ERROR] 입력은 숫자만 가능합니다");
+            System.out.println("[ERROR] 입력은 숫자만 가능합니다");
+            throw new IllegalArgumentException();
         }
     }
 
-    final List<Integer> getNumbers() {
+    public List<Integer> getLottoNumbers() {
         return numbers;
     }
 }
