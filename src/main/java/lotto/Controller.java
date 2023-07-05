@@ -3,69 +3,77 @@ package lotto;
 import lotto.domain.Computer;
 import lotto.domain.LottoRank;
 import lotto.domain.LottoResult;
+import lotto.domain.lottonumber.Lotto;
 import lotto.domain.lottonumber.WinningLotto;
 import lotto.views.LottoBuyView;
 import lotto.views.LottoResultView;
 import lotto.views.WinningLottoView;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public final class Controller {
     public static final int PRICE_OF_LOTTO = 1000;
 
-    private static List<List<Integer>> lotto;
-    private static WinningLotto winningLotto;
+    private static final Computer computer = new Computer();
+    private static final LottoBuyView lottoBuyView = new LottoBuyView();
+    private static final LottoResult lottoResult = new LottoResult();
 
     public void startLottoGame() {
-
         try {
-            buyLotto();
-            getWinningLotto();
-            getLottoResult();
+            List<Lotto> purchasedLotto = buyLotto(lottoBuyView.readPrice());
+            WinningLotto winningLotto = getWinningLotto();
+            printLottoResult(purchasedLotto, winningLotto);
         } catch (IllegalArgumentException e) {
         }
 
     }
 
-    private void buyLotto() throws IllegalArgumentException {
+    private List<Lotto> buyLotto(String price) throws IllegalArgumentException {
 
-        LottoBuyView lottoBuyView = new LottoBuyView();
-
-        lotto = new Computer().buyLottoByPrice(lottoBuyView.readPrice());
-        lottoBuyView.printViewPurchasedLotto(lotto);
-
-
+        List<Lotto> lotto = computer.buyLottoByPrice(price);
+        lottoBuyView.printViewPurchasedLotto(convertLotto(lotto));
+        return lotto;
     }
 
-    private void getWinningLotto() {
+    private static List<List<Integer>> convertLotto(List<Lotto> lotto) {
+        return lotto.stream()
+                .map(Lotto::getLottoNumbers)
+                .collect(Collectors.toList());
+    }
+
+    private WinningLotto getWinningLotto() {
         WinningLottoView winningLottoView = new WinningLottoView();
-        winningLotto = new WinningLotto(winningLottoView.readWinningLottoNumbers(), winningLottoView.readBonusNumber());
+        return new WinningLotto(winningLottoView.readWinningLottoNumbers(), winningLottoView.readBonusNumber());
     }
 
-    private void getLottoResult() {
-        LottoResult lottoResult = new LottoResult(lotto, winningLotto);
+    private void printLottoResult(List<Lotto> purchasedLotto, WinningLotto winningLotto) {
+
+        List<LottoRank> lottoRanks = lottoResult.getLottoRanks(purchasedLotto, winningLotto);
+        getLottoResult(lottoRanks);
+    }
+
+
+    private void getLottoResult(List<LottoRank> lottoRanks) {
         LottoResultView lottoResultView = new LottoResultView();
 
+        printRanks(lottoRanks, lottoResultView);
+        printAverageProfit(lottoRanks, lottoResultView);
+    }
+
+    private void printRanks(List<LottoRank> lottoRanks, LottoResultView lottoResultView) {
         for (LottoRank rank : LottoRank.values()) {
-            int amount = lottoResult.getNumberOfRanks(rank);
             if (rank == LottoRank.UNRANKED) {
                 continue;
             }
-
-            printResult(lottoResultView, rank, amount);
+            int rankAmount = lottoResult.getNumberOfRanks(lottoRanks, rank);
+            lottoResultView.printViewLottoRank(rank.getValue(), rank.getMoney(), rankAmount, rank == LottoRank.SECOND);
         }
-        printAverageProfit(lottoResult, lottoResultView);
     }
 
-    private void printAverageProfit(LottoResult lottoResult, LottoResultView lottoResultView) {
-        int totalPrice = lotto.size() * PRICE_OF_LOTTO;
-        double average = lottoResult.getAverageProfit(totalPrice);
-
+    private void printAverageProfit(List<LottoRank> lottoRanks, LottoResultView lottoResultView) {
+        int totalPrice = lottoRanks.size() * PRICE_OF_LOTTO;
+        double average = lottoResult.getAverageProfit(lottoRanks, totalPrice);
         lottoResultView.printViewAverageProfit(average);
-    }
-
-    private void printResult(LottoResultView lottoResultView, LottoRank rank, int amount) {
-        lottoResultView.printViewRankInfo(rank.getValue(), rank.getMoney(), amount, rank == LottoRank.SECOND);
-
     }
 }
