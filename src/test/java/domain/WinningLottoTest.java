@@ -76,7 +76,7 @@ class WinningLottoTest {
         assertThat(winningLotto.checkRank(lotto)).isEqualTo(LottoRank.SECOND);
     }
 
-    @DisplayName("매칭 결과 Lott Rank SECOND 여야한다.")
+    @DisplayName("매칭 결과 Lott Rank THIRD 여야한다.")
     @Test
     void createThirdRankLotto() {
         WinningLotto winningLotto = new WinningLotto("3,2,6,4,1,10", "20");
@@ -100,7 +100,7 @@ class WinningLottoTest {
         assertThat(winningLotto.checkRank(lotto)).isEqualTo(LottoRank.FIFTH);
     }
 
-    @DisplayName("매칭 결과 Lott Rank FIFTH 여야한다.")
+    @DisplayName("매칭 결과 Lott Rank UNRANKED 여야한다.")
     @Test
     void createUnRankedLotto() {
         WinningLotto winningLotto = new WinningLotto("3,2,6,15,10,43", "20");
