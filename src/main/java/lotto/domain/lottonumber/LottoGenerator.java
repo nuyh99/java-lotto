@@ -13,7 +13,7 @@ public final class LottoGenerator {
             Lotto.LOTTO_NUMBER_SIZE
     };
 
-    static public List<Integer> next() throws IllegalArgumentException {
+    public static List<Integer> next() throws IllegalArgumentException {
 
         List<Integer> pickNumbers = Randoms.pickUniqueNumbersInRange(LOTTO_RULE[0], LOTTO_RULE[1], LOTTO_RULE[2]);
         List<Integer> lotto = new ArrayList<>(pickNumbers);

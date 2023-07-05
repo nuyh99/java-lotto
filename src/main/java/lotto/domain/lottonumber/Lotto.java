@@ -16,7 +16,7 @@ public class Lotto {
         this.numbers = numbers;
     }
 
-    protected void validate(List<Integer> testNumbers) {
+    private static void validate(List<Integer> testNumbers) {
 
         if (testNumbers.size() != LOTTO_NUMBER_SIZE) {
             System.out.println("[ERROR] 로또 번호는 6개이어야 합니다.");
@@ -26,7 +26,7 @@ public class Lotto {
         validateDuplicateNumber(testNumbers);
     }
 
-    private void validateNumberRange(List<Integer> numbers) {
+    private static void validateNumberRange(List<Integer> numbers) {
         final int size = (int) numbers.stream()
                 .filter(e -> NUMBER_LOWER_BOUND <= e && e <= NUMBER_MAX_BOUND)
                 .count();
@@ -37,7 +37,7 @@ public class Lotto {
         }
     }
 
-    private void validateDuplicateNumber(List<Integer> numbers) {
+    private static void validateDuplicateNumber(List<Integer> numbers) {
         int numberAmount = (int) new HashSet<>(numbers).size();
 
         if (numberAmount != LOTTO_NUMBER_SIZE) {
@@ -46,7 +46,7 @@ public class Lotto {
         }
     }
 
-    public List<Integer> getLottoNumbers() {
+    public final List<Integer> getLottoNumbers() {
         return numbers;
     }
 }
