@@ -6,7 +6,7 @@ public final class LottoResultView {
         System.out.println("---");
     }
 
-    public void printViewRankInfo(int matches, int money, int amount, boolean bonus) {
+    public void printViewLottoRank(int matches, int money, int amount, boolean bonus) {
         if (bonus) {
             System.out.printf("%d개 일치, 보너스 볼 일치 (%,d원) - %d개\n", matches, money, amount);
             return;

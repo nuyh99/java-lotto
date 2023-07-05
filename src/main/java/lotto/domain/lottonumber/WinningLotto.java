@@ -42,7 +42,7 @@ public final class WinningLotto extends Lotto {
 
     private void isDuplicate(String bonus) {
 
-        if (getNumbers().contains(Integer.parseInt(bonus))) {
+        if (getLottoNumbers().contains(Integer.parseInt(bonus))) {
             System.out.println("[ERROR] 보너스 번호와 로또 번호는 중복되선 안됩니다.");
             throw new IllegalArgumentException();
         }
@@ -52,7 +52,7 @@ public final class WinningLotto extends Lotto {
     public LottoRank checkRank(List<Integer> lottoNumbers) {
         int matches = (int) lottoNumbers
                 .stream()
-                .filter(getNumbers()::contains)
+                .filter(getLottoNumbers()::contains)
                 .count();
 
         boolean isBonus = (matches == LottoRank.SECOND.getValue()
